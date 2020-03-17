@@ -32,8 +32,8 @@ public class MyGame extends ApplicationAdapter {
 	TiledMapRenderer tiledMapRenderer;
 	private int xpos;
 	private int ypos;
-	private int xdelta = 8;
-	private int ydelta = 8;
+	private int xdelta = 2;
+	private int ydelta = 2;
 
 	@Override
 	public void create () {
@@ -44,7 +44,7 @@ public class MyGame extends ApplicationAdapter {
 		HEIGHT = 14*128;
 
 		batch = new SpriteBatch();
-		img = new Texture("dvd.png");
+		img = new Texture("graphics/hero.png");
 
 		camera = new OrthographicCamera();
 		viewport = new StretchViewport(WIDTH, HEIGHT, camera);
@@ -67,7 +67,8 @@ public class MyGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-
+		tiledMapRenderer.setView(camera);
+		tiledMapRenderer.render();
 
 		camera.update();
 
@@ -75,12 +76,11 @@ public class MyGame extends ApplicationAdapter {
 		batch.setProjectionMatrix(camera.combined);
 
 		batch.begin();
-		batch.draw(img, xpos, ypos, 300, 300);
+		batch.draw(img, xpos, ypos);
 		batch.end();
 
 
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
+
 
  		if ( (xpos > (WIDTH - 300)) || (xpos < 0) ) xdelta = -xdelta;
 		if ( (ypos > (HEIGHT - 240)) || (ypos < -60) ) ydelta = -ydelta;
